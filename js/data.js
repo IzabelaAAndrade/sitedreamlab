@@ -25,7 +25,7 @@ const TEAM = [
     temas: ["BACH1", "Ferroptose"],
     bio: "Biomédica pela Unifesp (2023), com iniciação científica CNPq e FAPESP estudando peptídeos derivados de inibidores de protease em células de glioblastoma. Investiga o papel da autofagia coordenada por NRF2 na resposta quimioterápica em glioblastoma.",
     links: { Lattes: "http://lattes.cnpq.br/4311894634723883" },
-    foto: "assets/equipe/anabia.avif"
+    foto: "assets/equipe/anabia.jpeg"
   },
   {
     nome: "Izadora de Souza",
@@ -43,7 +43,7 @@ const TEAM = [
     grupo: "dout",
     cargo: "Doutoranda",
     temas: ["Câncer de Pulmão", "mRNA", "Terapia Gênica", "NRF2"],
-    bio: "Bióloga (2021) e mestre em Bioquímica (2022) pela UFSC. Doutoranda do Programa de Hematologia e Oncologia da Unifesp, estuda a biologia molecular do câncer de pulmão e a resistência à quimioterapia e à imunoterapia.",
+    bio: "Bióloga (2021) e mestre em Bioquímica (2022) pela UFSC. Doutoranda do Programa de Hematologia e Oncologia da UNIFESP, dedica-se ao estudo da biologia molecular do câncer de pulmão, dos mecanismos de resistência terapêutica e ao desenvolvimento de estratégias de terapia gênica baseadas em mRNA para modular a ferroptose e potencializar a resposta terapêutica.",
     links: { Lattes: "http://lattes.cnpq.br/6463171240936774" },
     foto: "assets/equipe/karol.png"
   },
@@ -83,7 +83,7 @@ const TEAM = [
     grupo: "ic",
     cargo: "Iniciação Científica",
     temas: ["Biologia Molecular", "Ferroptose"],
-    bio: "Estudante de Farmácia na Unifesp.",
+    bio: "Estudante de Farmácia pela Universidade Federal de São Paulo (UNIFESP) e bolsista FAPESP de iniciação científica. Investiga a possível interação entre a DNA polimerase iota (Polι) e a proteína LARP7, utilizando abordagens computacionais e experimentais de biologia molecular.",
     links: { Lattes: "https://lattes.cnpq.br/7721758347446009" },
     foto: "assets/equipe/alessandra.png"
   },
