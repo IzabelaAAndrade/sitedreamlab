@@ -85,7 +85,7 @@ const TEAM = [
     temas: ["Biologia Molecular", "Ferroptose"],
     bio: "Estudante de Farmácia na Unifesp.",
     links: { Lattes: "https://lattes.cnpq.br/7721758347446009" },
-    foto: ""
+    foto: "assets/equipe/alessandra.png"
   },
   {
     nome: "Luísa Kawakami Piratello",
