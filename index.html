@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DREAM Lab · Drug REsistance And Mutagenesis Lab · Unifesp</title>
+  <meta name="description" content="DREAM Lab (Unifesp): estudamos os mecanismos moleculares e celulares da resistência de células tumorais à quimioterapia." />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Comfortaa:wght@400;600;700&family=Quicksand:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <img src="assets/logo-mark.png" alt="" class="loader__mark" />
+      <p class="loader__text">replicando o DNA<span class="dots"><i>.</i><i>.</i><i>.</i></span></p>
+    </div>
+  </div>
+
+  <!-- cursor + progress -->
+  <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div></div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <!-- background blobs -->
+  <div class="blobs" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__logo" aria-label="DREAM Lab, início">
+      <img src="assets/logo.png" alt="DREAM Lab" />
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#sobre">Sobre</a>
+      <a href="#pesquisa">Pesquisa</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#publicacoes">Publicações</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#midia">Na mídia</a>
+      <a href="#contato" class="pill magnetic">Contato <span>✦</span></a>
+    </nav>
+    <button class="nav__burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__text">
+        <p class="eyebrow reveal">Unifesp · Escola Paulista de Medicina · desde 2019</p>
+        <h1 class="hero__title">
+          <span class="line"><span>Como tumores</span></span>
+          <span class="line"><span class="rotator" id="rotator"><em>resistem</em></span></span>
+          <span class="line"><span>à quimioterapia?</span></span>
+        </h1>
+        <p class="hero__lead reveal">Somos o <strong>DREAM Lab</strong> — <span class="typed" id="typed"></span><span class="caret">|</span><br/>Investigamos os mecanismos moleculares e celulares que tornam células tumorais resistentes ao tratamento.</p>
+        <div class="hero__cta reveal">
+          <a href="#sobre" class="btn btn--grad magnetic">Conheça o lab</a>
+          <a href="#equipe" class="btn btn--ghost magnetic">Nossa equipe</a>
+        </div>
+      </div>
+      <div class="hero__helix">
+        <canvas id="helix" aria-label="Animação de uma dupla hélice de DNA em tons pastel" role="img"></canvas>
+        <div class="sticker s1">🧬 CRISPR</div>
+        <div class="sticker s2">ferroptose ✦</div>
+        <div class="sticker s3">NRF2</div>
+      </div>
+      <a href="#sobre" class="scrollhint" aria-label="Rolar para baixo"><span></span></a>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>quimiorresistência</span><i>✦</i><span>ferroptose</span><i>✦</i><span>reparo de DNA</span><i>✦</i><span>CRISPR/Cas9</span><i>✦</i><span>glioblastoma</span><i>✦</i><span>autofagia</span><i>✦</i><span>NRF2</span><i>✦</i><span>câncer de pulmão</span><i>✦</i><span>temozolomida</span><i>✦</i><span>onco-hematologia</span><i>✦</i>
+        <span>quimiorresistência</span><i>✦</i><span>ferroptose</span><i>✦</i><span>reparo de DNA</span><i>✦</i><span>CRISPR/Cas9</span><i>✦</i><span>glioblastoma</span><i>✦</i><span>autofagia</span><i>✦</i><span>NRF2</span><i>✦</i><span>câncer de pulmão</span><i>✦</i><span>temozolomida</span><i>✦</i><span>onco-hematologia</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ============ SOBRE ============ -->
+    <section class="section about" id="sobre">
+      <div class="section__head">
+        <span class="tag reveal">01 — sobre nós</span>
+      </div>
+      <p class="about__big" id="scrubText">O DREAM Lab nasceu em 2019, idealizado pela Profa. Dra. Clarissa Rocha, para entender por que algumas células tumorais sobrevivem à quimioterapia. Hoje fazemos parte do Programa de Pós-Graduação em Medicina (Hematologia e Oncologia), no prédio do Hemocentro do Hospital Universitário da Unifesp.</p>
+
+      <div class="stats">
+        <div class="stat reveal"><span class="stat__num" data-count="2019" data-plain>0</span><span class="stat__label">ano de fundação</span></div>
+        <div class="stat reveal"><span class="stat__num" data-count="8">0</span><span class="stat__label">pesquisadoras</span></div>
+        <div class="stat reveal"><span class="stat__num" data-count="10">0</span><span class="stat__label">publicações em destaque</span></div>
+        <div class="stat reveal"><span class="stat__num" data-count="2">0</span><span class="stat__label">laboratórios parceiros</span></div>
+      </div>
+    </section>
+
+    <!-- ============ PESQUISA (horizontal) ============ -->
+    <section class="hscroll" id="pesquisa">
+      <div class="hscroll__sticky">
+        <div class="hscroll__intro">
+          <span class="tag">02 — pesquisa</span>
+          <h2 class="h2">O que a gente <em>estuda</em></h2>
+          <p>Áreas de foco diferentes, um objetivo em comum: entender a resistência tumoral para tratar melhor.</p>
+          <p class="hint">role para explorar →</p>
+        </div>
+        <div class="hscroll__viewport" id="hView">
+        <div class="hscroll__track" id="hTrack">
+          <article class="rcard" style="--c1:var(--mint);--c2:var(--blue)">
+            <span class="rcard__n">01</span>
+            <svg class="rcard__icon" viewBox="0 0 80 80"><circle cx="40" cy="40" r="22" class="spin-dash"/><path d="M28 40h24M40 28v24"/></svg>
+            <h3>Quimiorresistência</h3>
+            <p>Os mecanismos moleculares e celulares que permitem a células tumorais escapar da quimioterapia, como a temozolomida e a cisplatina.</p>
+          </article>
+          <article class="rcard" style="--c1:var(--pink);--c2:var(--lilac)">
+            <span class="rcard__n">02</span>
+            <svg class="rcard__icon" viewBox="0 0 80 80"><path d="M40 14 C52 30 60 40 60 50 a20 20 0 0 1-40 0 C20 40 28 30 40 14Z" class="pulse"/></svg>
+            <h3>Ferroptose</h3>
+            <p>Morte celular dependente de ferro como alvo terapêutico: o papel de NRF2, HMOX1, heme e ferritina em glioblastoma e câncer de pulmão.</p>
+          </article>
+          <article class="rcard" style="--c1:var(--blue);--c2:var(--mint)">
+            <span class="rcard__n">03</span>
+            <svg class="rcard__icon" viewBox="0 0 80 80"><path d="M24 12c0 18 32 18 32 28S24 50 24 68M56 12c0 18-32 18-32 28s32 10 32 28" class="draw"/><path d="M30 24h20M30 56h20"/></svg>
+            <h3>Reparo de DNA</h3>
+            <p>As vias de reparo e de tolerância a lesões no DNA e sua relação íntima com a resistência a quimioterápicos.</p>
+          </article>
+          <article class="rcard" style="--c1:var(--pink);--c2:var(--mint)">
+            <span class="rcard__n">04</span>
+            <svg class="rcard__icon" viewBox="0 0 80 80"><path d="M20 30 L40 40 L20 50" class="snip"/><path d="M60 30 L40 40 L60 50" class="snip r"/><circle cx="16" cy="28" r="5"/><circle cx="16" cy="52" r="5"/></svg>
+            <h3>Edição gênica CRISPR/Cas9</h3>
+            <p>Bibliotecas CRISPR genômicas para revelar genes que sustentam a resistência à temozolomida.</p>
+          </article>
+          <article class="rcard" style="--c1:var(--blue);--c2:var(--pink)">
+            <span class="rcard__n">05</span>
+            <svg class="rcard__icon" viewBox="0 0 80 80"><path d="M10 46 C20 30 30 30 40 46 S60 62 70 46" class="draw"/><path d="M18 40v-8M28 36v-8M38 44v-8M48 50v-8M58 48v-8" class="mrna-bases"/><circle cx="66" cy="30" r="6" class="float"/></svg>
+            <h3>mRNAs como terapia</h3>
+            <p>Estudos com mRNAs como estratégia terapêutica: usar a própria maquinaria da célula para produzir moléculas capazes de vencer a resistência tumoral.</p>
+          </article>
+          <article class="rcard" style="--c1:var(--lilac);--c2:var(--blue)">
+            <span class="rcard__n">06</span>
+            <svg class="rcard__icon" viewBox="0 0 80 80"><circle cx="40" cy="40" r="24"/><circle cx="34" cy="36" r="6" class="float"/><circle cx="48" cy="46" r="5" class="float d2"/><circle cx="42" cy="28" r="3" class="float d3"/></svg>
+            <h3>Autofagia</h3>
+            <p>Como a autofagia, incluindo a autofagia mediada por chaperonas e a coordenada por NRF2, interage com a ferroptose e influencia a resposta à quimioterapia.</p>
+          </article>
+          <article class="rcard rcard--models" style="--c1:var(--lilac);--c2:var(--pink)">
+            <span class="rcard__n">07</span>
+            <h3>Nossos modelos</h3>
+            <ul class="chips">
+              <li>glioblastoma</li><li>câncer de pulmão</li><li>melanoma</li><li>neoplasias hematológicas</li>
+            </ul>
+            <p>Linhagens tumorais humanas, com foco em quimioterapia e, mais recentemente, imunoterapia.</p>
+          </article>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EQUIPE ============ -->
+    <section class="section team" id="equipe">
+      <div class="section__head split">
+        <div>
+          <span class="tag reveal">03 — equipe</span>
+          <h2 class="h2 reveal">As cientistas por trás <em>das pipetas</em></h2>
+        </div>
+        <p class="reveal muted">Conheça nossas pesquisadoras. Clique em um card para ler mais.</p>
+      </div>
+      <div class="filters reveal" role="tablist" aria-label="Filtrar equipe">
+        <button class="chip is-active" data-filter="all">Todas</button>
+        <button class="chip" data-filter="docente">Docentes</button>
+        <button class="chip" data-filter="dout">Doutorandas</button>
+        <button class="chip" data-filter="mest">Mestrandas</button>
+        <button class="chip" data-filter="ic">Iniciação Científica</button>
+      </div>
+      <div class="team__grid" id="teamGrid"></div>
+    </section>
+
+    <!-- ============ PUBLICAÇÕES ============ -->
+    <section class="section pubs" id="publicacoes">
+      <div class="section__head split">
+        <div>
+          <span class="tag reveal">04 — publicações</span>
+          <h2 class="h2 reveal">Nossos <em>trabalhos</em></h2>
+        </div>
+        <label class="search reveal">
+          <span aria-hidden="true">⌕</span>
+          <input type="search" id="pubSearch" placeholder="buscar por título, autora, tema…" aria-label="Buscar publicações" />
+        </label>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <!-- ============ AMBIENTE (stickers) ============ -->
+    <section class="section vibe" id="ambiente">
+      <div class="vibe__board" id="board">
+        <div class="vibe__text">
+          <span class="tag">05 — nosso jeito</span>
+          <h2 class="h2">Ciência séria,<br/><em>dia a dia leve.</em></h2>
+          <p>Queremos um ambiente acolhedor e colaborativo, com rigor científico e uma equipe alegre no cotidiano. Cada pesquisadora tem seu foco, mas a gente se apoia em todas as frentes.</p>
+          <p class="hint">psiu: arrasta os adesivos ✿</p>
+        </div>
+        <div class="drag d1" style="--r:-8deg">🧫 cultura de células</div>
+        <div class="drag d2" style="--r:6deg">☕ café no lab</div>
+        <div class="drag d3" style="--r:-3deg">💜 mulheres na ciência</div>
+        <div class="drag d4" style="--r:10deg">🔬 western blot</div>
+        <div class="drag d5" style="--r:-12deg">✨ colaboração</div>
+        <div class="drag d6" style="--r:4deg">🧬 Cas9</div>
+      </div>
+    </section>
+
+    <!-- ============ GALERIA ============ -->
+    <section class="section gallery" id="galeria">
+      <div class="section__head split">
+        <div>
+          <span class="tag reveal">06 — galeria</span>
+          <h2 class="h2 reveal">Momentos <em>DREAM</em></h2>
+        </div>
+        <p class="reveal muted">Bancada, congressos, cafés e comemorações. Clique numa foto para ampliar.</p>
+      </div>
+      <div class="gallery__grid" id="galleryGrid"></div>
+    </section>
+
+    <!-- ============ MÍDIA ============ -->
+    <section class="section media" id="midia">
+      <div class="section__head">
+        <span class="tag reveal">07 — na mídia</span>
+        <h2 class="h2 reveal">A gente também <em>aparece</em> por aí</h2>
+      </div>
+      <div class="media__grid">
+        <a class="mcard reveal tilt" href="https://www.youtube.com/watch?v=d5uGVwGXpRw" target="_blank" rel="noopener" aria-label="Assistir no YouTube: Prêmio Octavio Frias de Oliveira 2017">
+          <span class="mcard__thumb" style="background-image:url('https://i.ytimg.com/vi/d5uGVwGXpRw/hqdefault.jpg')"></span>
+          <span class="mcard__year">2017</span>
+          <h3>Prêmio Octavio Frias de Oliveira</h3>
+          <p>Vídeo sobre a pesquisa de Clarissa Rocha em gliomas: tumores resistentes à quimioterapia expressavam um gene que influencia os níveis de glutationa, que pode se ligar à temozolomida e impedir que ela chegue ao núcleo da célula tumoral.</p>
+          <span class="mcard__watch">assistir no YouTube ↗</span>
+          <span class="mcard__play" aria-hidden="true">▶</span>
+        </a>
+        <a class="mcard reveal tilt" style="--c1:var(--blue);--c2:var(--lilac)" href="https://www.youtube.com/watch?v=v34DHglpssA" target="_blank" rel="noopener" aria-label="Assistir no YouTube: Matéria de Capa, Herança Genética">
+          <span class="mcard__thumb" style="background-image:url('https://i.ytimg.com/vi/v34DHglpssA/hqdefault.jpg')"></span>
+          <span class="mcard__year">2019</span>
+          <h3>TV Cultura · Matéria de Capa</h3>
+          <p>Episódio "Herança Genética" (27/10/2019), sobre edição gênica e suas aplicações na medicina.</p>
+          <span class="mcard__watch">assistir no YouTube ↗</span>
+          <span class="mcard__play" aria-hidden="true">▶</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ PARCEIROS ============ -->
+    <section class="section partners">
+      <div class="section__head">
+        <span class="tag reveal">08 — parcerias</span>
+        <h2 class="h2 reveal">Laboratórios <em>parceiros</em></h2>
+      </div>
+      <div class="partners__grid">
+        <a class="pcard reveal" href="https://sites.google.com/usp.br/laboratoriodereparodedna/p%C3%A1gina-inicial?authuser=0" target="_blank" rel="noopener">
+          <h3>Laboratório de Reparo de DNA</h3>
+          <p>Estuda reparo de DNA e mutagênese em células de mamíferos, incluindo células de pacientes com xeroderma pigmentosum, com foco em tolerância a lesões e apoptose.</p>
+          <span class="arrow">saiba mais ↗</span>
+        </a>
+        <a class="pcard reveal" href="https://www.instagram.com/target.research/" target="_blank" rel="noopener">
+          <h3>Target Research</h3>
+          <p>Grupo da Unifesp liderado por Mariana Lazarini que estuda neoplasias hematológicas em busca de novos alvos para terapia molecular.</p>
+          <span class="arrow">@target.research ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ CONTATO ============ -->
+    <section class="contact" id="contato">
+      <div class="contact__inner">
+        <span class="tag">09 — contato</span>
+        <h2 class="contact__title">Faça uma <em>visita!</em></h2>
+        <p class="contact__lead">Quer fazer parte do nosso grupo? Ficou curiosa(o) sobre nossas pesquisas? Fala com a gente :)</p>
+        <a class="btn btn--grad btn--xl magnetic" href="mailto:clarissa.rocha@unifesp.br">clarissa.rocha@unifesp.br</a>
+        <div class="contact__cols">
+          <div>
+            <h4>Endereço</h4>
+            <p>Av. Dr. Diogo de Faria, 824 — 5º andar<br/>Vila Clementino, São Paulo – SP</p>
+            <p>Tel.: (11) 5539-7289</p>
+          </div>
+          <div>
+            <h4>Redes sociais</h4>
+            <ul class="socials">
+              <li><a href="https://www.instagram.com/dreamlab.unifesp/" target="_blank" rel="noopener">Instagram</a></li>
+              <li><a href="https://www.facebook.com/DREAM-Lab-Unifesp-102678821476445/" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://twitter.com/dreamlabunifesp" target="_blank" rel="noopener">Twitter / X</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="map">
+          <iframe title="Mapa: Av. Dr. Diogo de Faria, 824, São Paulo" loading="lazy" src="https://www.google.com/maps?q=Av.+Dr.+Diogo+de+Faria,+824,+Vila+Clementino,+S%C3%A3o+Paulo&output=embed"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="assets/logo.png" alt="DREAM Lab" class="footer__logo" />
+    <p>Drug REsistance And Mutagenesis Lab · Departamento de Oncologia Clínica e Experimental · Unifesp</p>
+    <p class="footer__small">feito com 💗 pela equipe DREAM Lab · © <span id="year"></span></p>
+  </footer>
+
+  <!-- modal -->
+  <dialog class="modal" id="modal">
+    <button class="modal__close" data-close aria-label="Fechar">×</button>
+    <div id="modalBody"></div>
+    <div class="modal__foot"><button class="btn btn--ghost" data-close>← voltar</button></div>
+  </dialog>
+
+  <!-- lightbox da galeria -->
+  <dialog class="lightbox" id="lightbox">
+    <button class="modal__close" data-close aria-label="Fechar">×</button>
+    <button class="lb__nav lb__prev" id="lbPrev" aria-label="Foto anterior">‹</button>
+    <figure class="lb__fig"><div id="lbMedia"></div><figcaption id="lbCap"></figcaption></figure>
+    <button class="lb__nav lb__next" id="lbNext" aria-label="Próxima foto">›</button>
+  </dialog>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
