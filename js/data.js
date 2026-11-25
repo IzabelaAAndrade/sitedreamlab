@@ -45,7 +45,7 @@ const TEAM = [
     temas: ["Câncer de Pulmão", "Quimioterapia", "Imunoterapia"],
     bio: "Bióloga (2021) e mestre em Bioquímica (2022) pela UFSC. Doutoranda do Programa de Hematologia e Oncologia da Unifesp, estuda a biologia molecular do câncer de pulmão e a resistência à quimioterapia e à imunoterapia.",
     links: { Lattes: "http://lattes.cnpq.br/6463171240936774" },
-    foto: ""
+    foto: "assets/equipe/karol.png"
   },
   {
     nome: "Izabela A. Andrade",
