@@ -22,7 +22,7 @@ const TEAM = [
     completo: "Ana Beatriz da Silva Teixeira",
     grupo: "dout",
     cargo: "Doutoranda",
-    temas: ["autofagia", "NRF2", "glioblastoma"],
+    temas: ["BACH1", "Ferroptose"],
     bio: "Biomédica pela Unifesp (2023), com iniciação científica CNPq e FAPESP estudando peptídeos derivados de inibidores de protease em células de glioblastoma. Investiga o papel da autofagia coordenada por NRF2 na resposta quimioterápica em glioblastoma.",
     links: { Lattes: "http://lattes.cnpq.br/4311894634723883" },
     foto: "assets/equipe/anabia.avif"
@@ -32,7 +32,7 @@ const TEAM = [
     completo: "Izadora de Souza",
     grupo: "dout",
     cargo: "Doutoranda",
-    temas: ["quimiorresistência", "morte celular", "ferroptose"],
+    temas: ["Quimiorresistência", "HMOX1", "Ferroptose"],
     bio: "Bióloga pela UFSCar (2019), onde fez iniciação científica, e mestre pela Unifesp (bolsa FAPESP, 2020–2022). Estuda quimiorresistência em células tumorais e mecanismos de morte celular, com destaque para a ferroptose.",
     links: { Lattes: "http://lattes.cnpq.br/3105117140514498" },
     foto: "assets/equipe/izadora.jpeg"
@@ -42,7 +42,7 @@ const TEAM = [
     completo: "Karoline Almeida Lima",
     grupo: "dout",
     cargo: "Doutoranda",
-    temas: ["câncer de pulmão", "quimioterapia", "imunoterapia"],
+    temas: ["Câncer de Pulmão", "Quimioterapia", "Imunoterapia"],
     bio: "Bióloga (2021) e mestre em Bioquímica (2022) pela UFSC. Doutoranda do Programa de Hematologia e Oncologia da Unifesp, estuda a biologia molecular do câncer de pulmão e a resistência à quimioterapia e à imunoterapia.",
     links: { Lattes: "http://lattes.cnpq.br/6463171240936774" },
     foto: ""
@@ -52,7 +52,7 @@ const TEAM = [
     completo: "Izabela A. Andrade",
     grupo: "dout",
     cargo: "Doutoranda",
-    temas: ["NRF2", "HMOX1", "ferroptose"],
+    temas: ["NRF2", "HMOX1", "Ferroptose"],
     bio: "Formada em Ciências Biomédicas pela USP, onde fez iniciação científica com bolsa FAPESP no DREAM Lab. Investiga o papel de NRF2, HMOX1 e alvos moleculares relacionados na ferroptose em células tumorais.",
     links: { Lattes: "http://lattes.cnpq.br/6298681912198143" },
     foto: "assets/equipe/izabela.jpeg"
@@ -62,7 +62,7 @@ const TEAM = [
     completo: "Tainá Lins",
     grupo: "mest",
     cargo: "Mestranda",
-    temas: ["autofagia", "glioblastoma"],
+    temas: ["ABCC1", "Ferroptose", "Resistência"],
     bio: "Formada em Biomedicina pela Unifesp/EPM, onde fez iniciação científica com bolsa FAPESP. Estuda o efeito da autofagia na resposta quimioterápica em células de glioblastoma.",
     links: { Lattes: "http://lattes.cnpq.br/2585280502358605" },
     foto: "assets/equipe/taina.jpeg"
@@ -72,7 +72,7 @@ const TEAM = [
     completo: "Juliana Valério",
     grupo: "mest",
     cargo: "Mestranda",
-    temas: ["ferroptose", "glioblastoma"],
+    temas: ["Ferroptose", "P53"],
     bio: "Formada em Biomedicina pela Unifesp/EPM, onde fez iniciação científica com bolsa FAPESP. Estuda o efeito da autofagia na resposta quimioterápica em células de glioblastoma.",
     links: { Lattes: "http://lattes.cnpq.br/2585280502358605" },
     foto: "assets/equipe/juliana.jpeg"
@@ -82,7 +82,7 @@ const TEAM = [
     completo: "Alessandra Megiolaro",
     grupo: "ic",
     cargo: "Iniciação Científica",
-    temas: ["biologia molecular", "ferroptose"],
+    temas: ["Biologia Molecular", "Ferroptose"],
     bio: "Estudante de Farmácia na Unifesp.",
     links: { Lattes: "https://lattes.cnpq.br/7721758347446009" },
     foto: ""
@@ -92,7 +92,7 @@ const TEAM = [
     completo: "Luísa Kawakami Piratello",
     grupo: "ic",
     cargo: "Iniciação Científica",
-    temas: ["câncer de pulmão", "ferroptose"],
+    temas: ["Câncer de Pulmão", "Ferroptose"],
     bio: "Estudante de Ciências Biológicas na Unifesp. Estuda quimiorresistência em linhagens de câncer de pulmão, com foco em ferroptose.",
     links: { Lattes: "https://lattes.cnpq.br/7721758347446009" },
     foto: "assets/equipe/luisa.avif"
