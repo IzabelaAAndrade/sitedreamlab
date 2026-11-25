@@ -42,7 +42,7 @@ const TEAM = [
     completo: "Karoline Almeida Lima",
     grupo: "dout",
     cargo: "Doutoranda",
-    temas: ["Câncer de Pulmão", "Quimioterapia", "Imunoterapia"],
+    temas: ["Câncer de Pulmão", "mRNA", "Terapia Gênica", "NRF2"],
     bio: "Bióloga (2021) e mestre em Bioquímica (2022) pela UFSC. Doutoranda do Programa de Hematologia e Oncologia da Unifesp, estuda a biologia molecular do câncer de pulmão e a resistência à quimioterapia e à imunoterapia.",
     links: { Lattes: "http://lattes.cnpq.br/6463171240936774" },
     foto: "assets/equipe/karol.png"
@@ -72,8 +72,8 @@ const TEAM = [
     completo: "Juliana Valério",
     grupo: "mest",
     cargo: "Mestranda",
-    temas: ["Ferroptose", "P53"],
-    bio: "Formada em Biomedicina pela Unifesp/EPM, onde fez iniciação científica com bolsa FAPESP. Estuda o efeito da autofagia na resposta quimioterápica em células de glioblastoma.",
+    temas: ["Ferroptose", "P53", "NRF2","XCT"],
+    bio: "Formada em Biomedicina pela Unifesp/EPM em 2025, fez iniciação científica com bolsa FAPESP.  Atualmente estuda o papel dos fatores de transcrição p53 e NRF2 na modulação da morte celular por ferroptose em linhagens celulares.",
     links: { Lattes: "http://lattes.cnpq.br/2585280502358605" },
     foto: "assets/equipe/juliana.jpeg"
   },
@@ -123,7 +123,7 @@ const PUBS = [
     ano: 2026,
     titulo: "Tipping the balance: NRF2’s dual role in ferroptotic fate",
     autores: "de Souza, I., da Silva Teixeira, A. B., Ferreira Dos Santos, A., Friedmann Angeli, J. P., & Ribeiro Reily Rocha, C.",
-    revista: "Molecular and Cellular Biochemistry",
+    revista: "Oncogenesis",
     tipo: "revisão",
     temas: ["NRF2", "quimiorresistência", "câncer de pulmão", "glioblastoma"],
     link: "https://www.nature.com/articles/s41389-026-00630-4#author-information"
