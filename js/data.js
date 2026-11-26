@@ -15,7 +15,7 @@ const TEAM = [
     temas: ["quimiorresistência", "reparo de DNA", "CRISPR/Cas9"],
     bio: "Graduada (2010) e doutora em Biotecnologia (2015) pela USP, com pós-doutorado no MIT. É professora adjunta do Departamento de Oncologia Clínica e Experimental da Unifesp, coordena o Programa de Pós-Graduação em Hematologia e Oncologia e é membro afiliada da Academia Brasileira de Ciências.",
     links: { Lattes: "http://lattes.cnpq.br/4139332389374038", "Google Scholar": "https://scholar.google.com.br/citations?user=Vzf5bFwAAAAJ&hl=pt-BR&oi=ao" },
-    foto: "assets/equipe/clarissa.avif"
+    foto: "assets/equipe/clarissa.jpeg"
   },
   {
     nome: "Ana Teixeira",
