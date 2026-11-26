@@ -15,7 +15,7 @@ const TEAM = [
     temas: ["quimiorresistência", "reparo de DNA", "CRISPR/Cas9"],
     bio: "Graduada (2010) e doutora em Biotecnologia (2015) pela USP, com pós-doutorado no MIT. É professora adjunta do Departamento de Oncologia Clínica e Experimental da Unifesp, coordena o Programa de Pós-Graduação em Hematologia e Oncologia e é membro afiliada da Academia Brasileira de Ciências.",
     links: { Lattes: "http://lattes.cnpq.br/4139332389374038", "Google Scholar": "https://scholar.google.com.br/citations?user=Vzf5bFwAAAAJ&hl=pt-BR&oi=ao" },
-    foto: "assets/equipe/clarissa.jpeg"
+    foto: "assets/equipe/clarissa.avif"
   },
   {
     nome: "Ana Teixeira",
@@ -25,7 +25,7 @@ const TEAM = [
     temas: ["BACH1", "Ferroptose"],
     bio: "Biomédica pela UNIFESP (2023), mestre em Oncologia pela mesma instituição, com pesquisa em autofagia desenvolvida no DREAM Lab e experiência internacional na Alemanha. Atualmente, é doutoranda FAPESP e investiga o papel de BACH1 na regulação da ferroptose em diferentes linhagens celulares de câncer.",
     links: { Lattes: "http://lattes.cnpq.br/4311894634723883" },
-    foto: "assets/equipe/anabia.avif"
+    foto: "assets/equipe/anabia.jpeg"
   },
   {
     nome: "Izadora de Souza",
