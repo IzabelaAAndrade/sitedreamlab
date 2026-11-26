@@ -143,6 +143,29 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; }
 .pill:hover span { transform: rotate(180deg) scale(1.3); }
 .nav__burger { display: none; }
 
+/* botão de idioma PT / EN */
+.lang {
+  position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; align-items: center;
+  margin-left: .4rem; padding: 4px; border-radius: 999px; border: 1.5px solid var(--line);
+  background: rgba(255,255,255,.75); cursor: pointer; font: inherit; color: var(--ink);
+  transition: border-color .3s, transform .3s var(--ease);
+}
+.lang:hover { border-color: var(--lilac); transform: scale(1.04); }
+.lang:focus-visible { outline: 3px solid var(--lilac); outline-offset: 3px; }
+.lang span[data-l] {
+  position: relative; z-index: 1; padding: .38rem .7rem; font-family: var(--f-display); font-weight: 700;
+  font-size: .8rem; letter-spacing: .04em; text-align: center; color: var(--ink-soft); transition: color .35s;
+}
+.lang span[data-l].on { color: var(--ink); }
+.lang__knob {
+  position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px;
+  background: var(--grad); background-size: 200% 100%; animation: shimmer 6s linear infinite;
+  transition: transform .5s var(--ease);
+}
+.lang[data-lang="en"] .lang__knob { transform: translateX(100%); }
+main, .footer { transition: opacity .26s ease, filter .26s ease; }
+body.lang-swap main, body.lang-swap .footer { opacity: .25; filter: blur(3px); }
+
 /* ---------- buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -502,7 +525,7 @@ a.mcard:hover .mcard__play { background: var(--pink); }
 @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.8); } 100% { box-shadow: 0 0 0 22px rgba(255,255,255,0); } }
 
 /* ---------- partners ---------- */
-.partners__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.partners__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
 .pcard { display: block; text-decoration: none; padding: 2.2rem; border-radius: var(--r); background: var(--card); border: 1px solid rgba(255,255,255,.9); transition: transform .5s var(--ease), background .5s; }
 .pcard:hover { transform: translateY(-6px); background: #fff; }
 .pcard h3 { font-family: var(--f-display); font-size: 1.4rem; margin: 0 0 .6rem; }
@@ -562,6 +585,7 @@ a.mcard:hover .mcard__play { background: var(--pink); }
   .d6 { top: auto; bottom: 22%; right: 6%; }
 }
 @media (max-width: 760px) {
+  .lang { margin-left: auto; margin-right: .5rem; }
   .nav__burger {
     display: grid; place-items: center; gap: 5px; width: 46px; height: 46px; border-radius: 50%;
     border: none; background: var(--ink); cursor: pointer; padding: 0 13px;
