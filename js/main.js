@@ -11,6 +11,63 @@
 
   $("#year").textContent = new Date().getFullYear();
 
+  /* ---------- idioma (PT / EN) ---------- */
+  const store = {
+    get: k => { try { return localStorage.getItem(k); } catch { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch {} }
+  };
+  const urlLang = new URLSearchParams(location.search).get("lang");
+  let LANG = ["pt", "en"].includes(urlLang) ? urlLang : (store.get("dreamlab-lang") === "en" ? "en" : "pt");
+  const HAS_I18N = typeof I18N !== "undefined";
+  const ui = k => (HAS_I18N ? I18N.ui[LANG][k] : null) ?? ({ about: "Sobre", topics: "Temas", photoOf: "Foto de", review: "artigo de revisão", empty: "nenhum trabalho encontrado ✿ tente outro termo", yourPhoto: "sua foto aqui", words: ["resistem", "se adaptam", "sobrevivem", "escapam"], scrubHighlight: [] })[k];
+  const norm = s => s.replace(/\s+/g, " ").trim();
+  // traduz cargos, temas e legendas vindos do data.js (mantém a 1ª letra maiúscula se ela era)
+  const term = s => {
+    if (LANG !== "en" || !HAS_I18N || !s) return s;
+    const en = I18N.terms[norm(s).toLowerCase()];
+    if (!en) return s;
+    return /^[A-ZÀ-Ú]/.test(s) && /^[a-z]/.test(en) ? en[0].toUpperCase() + en.slice(1) : en;
+  };
+  const bio = m => (LANG === "en" && HAS_I18N && I18N.bios[m.nome]) || m.bio;
+
+  // guarda os textos originais (português) do index.html, uma vez só
+  const DYNAMIC = "#teamGrid, #timeline, #galleryGrid, #modalBody, #lbCap, #typed, #rotator, #scrubText, script, style";
+  const textNodes = [];
+  (() => {
+    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let n;
+    while ((n = w.nextNode())) {
+      if (n.parentElement.closest(DYNAMIC)) continue;
+      if (norm(n.nodeValue)) textNodes.push({ n, pt: n.nodeValue });
+    }
+  })();
+  const attrNodes = [];
+  $$("[placeholder], [aria-label], [title], img[alt]").forEach(el => {
+    if (el.closest(DYNAMIC)) return;
+    ["placeholder", "aria-label", "title", "alt"].forEach(a => { if (el.hasAttribute(a)) attrNodes.push({ el, a, pt: el.getAttribute(a) }); });
+  });
+  const metaDesc = $('meta[name="description"]');
+  const PT_TITLE = document.title, PT_DESC = metaDesc ? metaDesc.content : "";
+
+  function applyStatic() {
+    const dict = HAS_I18N ? I18N.page : {};
+    const tx = pt => (LANG === "en" && dict[norm(pt)]) || null;
+    textNodes.forEach(({ n, pt }) => {
+      const en = tx(pt);
+      n.nodeValue = en ? pt.match(/^\s*/)[0] + en + pt.match(/\s*$/)[0] : pt;
+    });
+    attrNodes.forEach(({ el, a, pt }) => el.setAttribute(a, tx(pt) || pt));
+    document.title = tx(PT_TITLE) || PT_TITLE;
+    if (metaDesc) metaDesc.content = tx(PT_DESC) || PT_DESC;
+    document.documentElement.lang = LANG === "en" ? "en" : "pt-BR";
+    const btn = $("#langToggle");
+    if (btn) {
+      btn.dataset.lang = LANG;
+      btn.setAttribute("aria-label", ui("switchLabel") || "Switch language");
+      $$("[data-l]", btn).forEach(s => s.classList.toggle("on", s.dataset.l === LANG));
+    }
+  }
+
   /* ---------- preloader ---------- */
   document.body.classList.add("loading");
   const finishLoad = () => {
@@ -98,12 +155,12 @@
   $$("[data-count]").forEach(el => countIO.observe(el));
 
   /* ---------- rotating word + typewriter ---------- */
-  const words = ["resistem", "se adaptam", "sobrevivem", "escapam"];
   const rot = $("#rotator em");
   let wi = 0;
   if (!reduce) setInterval(() => {
     rot.classList.add("out");
     setTimeout(() => {
+      const words = ui("words");
       wi = (wi + 1) % words.length;
       rot.textContent = words[wi];
       rot.classList.remove("out"); rot.classList.add("pre");
@@ -183,10 +240,16 @@
   /* ---------- scroll-driven stuff ---------- */
   const progress = $(".progress span");
   const scrub = $("#scrubText");
-  const highlight = ["2019", "Clarissa", "Rocha,", "sobrevivem", "quimioterapia."];
-  scrub.innerHTML = scrub.textContent.split(/\s+/).map(w =>
-    `<span class="w${highlight.includes(w) ? " hl" : ""}">${w}</span>`).join(" ");
-  const scrubWords = $$(".w", scrub);
+  const SCRUB_PT = norm(scrub.textContent);
+  let scrubWords = [];
+  const buildScrub = () => {
+    const text = LANG === "en" && HAS_I18N && I18N.scrub.en ? I18N.scrub.en : SCRUB_PT;
+    const highlight = ui("scrubHighlight") || [];
+    scrub.innerHTML = text.split(/\s+/).map(w =>
+      `<span class="w${highlight.includes(w) ? " hl" : ""}">${w}</span>`).join(" ");
+    scrubWords = $$(".w", scrub);
+  };
+  buildScrub();
 
   const hs = $(".hscroll"), track = $("#hTrack");
   const isDesktop = () => innerWidth > 960;
@@ -237,21 +300,25 @@
   const avatar = (m, i) => {
     const [a1, a2] = pair(i);
     return `<div class="avatar" style="--a1:${a1};--a2:${a2};animation-delay:${-i * 1.3}s">${
-      m.foto ? `<img src="${m.foto}" alt="Foto de ${m.nome}" loading="lazy">` : initials(m.nome)}</div>`;
+      m.foto ? `<img src="${m.foto}" alt="${ui("photoOf")} ${m.nome}" loading="lazy">` : initials(m.nome)}</div>`;
   };
-  grid.innerHTML = TEAM.map((m, i) => `
-    <button class="member reveal" data-group="${m.grupo}" data-i="${i}" style="transition-delay:${(i % 4) * 0.08}s">
-      ${avatar(m, i)}
-      <span class="plus" aria-hidden="true">+</span>
-      <h3>${m.nome}</h3>
-      <p class="role">${m.cargo}</p>
-      <div class="mini-tags">${m.temas.map(t => `<span>${t}</span>`).join("")}</div>
-    </button>`).join("");
-  observeReveals();
+  let teamFilter = "all";
+  function renderTeam(shown = false) {
+    grid.innerHTML = TEAM.map((m, i) => `
+      <button class="member reveal${shown ? " in" : ""}${teamFilter === "all" || m.grupo === teamFilter ? "" : " hidden"}" data-group="${m.grupo}" data-i="${i}" style="transition-delay:${(i % 4) * 0.08}s">
+        ${avatar(m, i)}
+        <span class="plus" aria-hidden="true">+</span>
+        <h3>${m.nome}</h3>
+        <p class="role">${term(m.cargo)}</p>
+        <div class="mini-tags">${m.temas.map(t => `<span>${term(t)}</span>`).join("")}</div>
+      </button>`).join("");
+    observeReveals();
+  }
+  renderTeam();
 
   $$(".filters .chip").forEach(btn => btn.addEventListener("click", () => {
     $$(".filters .chip").forEach(b => b.classList.toggle("is-active", b === btn));
-    const f = btn.dataset.filter;
+    const f = teamFilter = btn.dataset.filter;
     $$(".member").forEach(card => {
       const show = f === "all" || card.dataset.group === f;
       card.classList.toggle("hidden", !show);
@@ -266,11 +333,11 @@
     body.innerHTML = `
       <div class="modal__top" style="--a1:${a1};--a2:${a2}">
         ${avatar(m, i)}
-        <div><h3>${m.completo}</h3><p>${m.cargo}</p></div>
+        <div><h3>${m.completo}</h3><p>${term(m.cargo)}</p></div>
       </div>
       <div class="modal__content">
-        <h4>Sobre</h4><p>${m.bio}</p>
-        <h4>Temas</h4><div class="mini-tags">${m.temas.map(t => `<span>${t}</span>`).join("")}</div>
+        <h4>${ui("about")}</h4><p>${bio(m)}</p>
+        <h4>${ui("topics")}</h4><div class="mini-tags">${m.temas.map(t => `<span>${term(t)}</span>`).join("")}</div>
         <div class="modal__links">${Object.entries(m.links).map(([k, v]) => `<a href="${v}" target="_blank" rel="noopener">${k} ↗</a>`).join("")}</div>
       </div>`;
     openDialog(modal);
@@ -293,8 +360,8 @@
   function renderPubs(q = "") {
     const query = q.trim().toLowerCase();
     const hl = s => query ? s.replace(new RegExp(`(${esc(query)})`, "ig"), "<mark>$1</mark>") : s;
-    const list = PUBS.filter(p => !query || [p.titulo, p.autores, p.revista, p.tipo || "", ...p.temas].join(" ").toLowerCase().includes(query));
-    if (!list.length) { timeline.innerHTML = `<li class="empty">nenhum trabalho encontrado ✿ tente outro termo</li>`; return; }
+    const list = PUBS.filter(p => !query || [p.titulo, p.autores, p.revista, p.tipo || "", ui("review"), ...p.temas, ...p.temas.map(term)].join(" ").toLowerCase().includes(query));
+    if (!list.length) { timeline.innerHTML = `<li class="empty">${ui("empty")}</li>`; return; }
     const years = [...new Set(list.map(p => p.ano))].sort((a, b) => b - a);
     timeline.innerHTML = years.map(y => `
       <li class="year-group">
@@ -305,9 +372,9 @@
             <div>
               <h4>${hl(p.titulo)}</h4>
               <p>${hl(p.autores)}</p>
-              ${p.tipo === "revisão" ? `<span class="badge">artigo de revisão</span>` : ""}
+              ${p.tipo === "revisão" ? `<span class="badge">${ui("review")}</span>` : ""}
               ${p.revista ? `<span class="journal">${hl(p.revista)}</span>` : ""}
-              <div class="mini-tags">${p.temas.map(t => `<span>${hl(t)}</span>`).join("")}</div>
+              <div class="mini-tags">${p.temas.map(t => `<span>${hl(term(t))}</span>`).join("")}</div>
             </div>
             <span class="pub__go" aria-hidden="true">→</span>
           </a>`).join("")}
@@ -318,124 +385,68 @@
   renderPubs();
   $("#pubSearch").addEventListener("input", e => renderPubs(e.target.value));
 
-    /* ---------- prêmios ---------- */
-  const aGrid = $("#awardsGrid");
-  const COLORS = { mint: "var(--mint)", blue: "var(--blue)", lilac: "var(--lilac)", pink: "var(--pink)" };
-  aGrid.innerHTML = PRIZES.map((p, i) => `
-    <button class="award reveal" data-i="${i}" style="--ac:${COLORS[p.cor] || "var(--pink)"}; transition-delay:${(i % 3) * 0.1}s">
-      <span class="medal" aria-hidden="true">
-        <span class="medal__ribbon l"></span><span class="medal__ribbon r"></span>
-        <span class="medal__rosette"></span>
-        <span class="medal__face">${p.icone || "🏅"}<span class="medal__shine"></span></span>
-      </span>
-      ${p.ano ? `<span class="award__year">${p.ano}</span>` : ""}
-      <h3>${p.titulo}</h3>
-      ${p.categoria ? `<p class="award__cat">${p.categoria}</p>` : ""}
-      ${p.quem ? `<p class="award__who">${p.quem}</p>` : ""}
-      <span class="award__cta">ver fotos ✿</span>
-    </button>`).join("") + `
-    <div class="award award--soon reveal">
-      <div class="soon__icon">🌷</div>
-      <h3>o próximo é nosso!</h3>
-      <p>em breve, mais conquistas por aqui</p>
-    </div>`;
-  observeReveals();
-
-  // confete fofo saindo do ponto do clique
-  const burst = (x, y) => {
-    if (reduce) return;
-    const hearts = ["♡", "✿", "✦"];
-    for (let k = 0; k < 26; k++) {
-      const s = document.createElement("span");
-      const ang = Math.random() * Math.PI * 2, dist = 80 + Math.random() * 140;
-      const isHeart = k % 5 === 0;
-      s.className = "confetti" + (isHeart ? " heart" : "");
-      if (isHeart) { s.textContent = hearts[k % 3]; s.style.color = PALETTE[k % PALETTE.length]; }
-      else s.style.background = PALETTE[k % PALETTE.length];
-      s.style.left = x + "px"; s.style.top = y + "px";
-      s.style.setProperty("--dx", Math.cos(ang) * dist + "px");
-      s.style.setProperty("--dy", Math.sin(ang) * dist + 60 + "px");
-      s.style.setProperty("--rot", (Math.random() * 720 - 360) + "deg");
-      document.body.appendChild(s);
-      setTimeout(() => s.remove(), 1200);
-    }
-  };
-
-  aGrid.addEventListener("click", e => {
-    const card = e.target.closest(".award:not(.award--soon)"); if (!card) return;
-    const p = PRIZES[+card.dataset.i];
-    burst(e.clientX || innerWidth / 2, e.clientY || innerHeight / 2);
-    const fotos = p.fotos && p.fotos.length ? p.fotos : [null, null, null];
-    const icons2 = ["🏆", "📸", "🎉"];
-    const slides = fotos.map((f, k) => {
-      const [a1, a2] = pair(k + 1);
-      return `<div class="prize__slide">${f ? `<img src="${f}" alt="${p.titulo}, foto ${k + 1}">`
-        : `<div class="gph" style="--a1:${a1};--a2:${a2}"><span>${icons2[k % 3]}</span><small>sua foto aqui</small></div>`}</div>`;
-    }).join("");
-    body.innerHTML = `
-      <div class="prize__carousel">
-        <div class="prize__track">${slides}</div>
-        ${fotos.length > 1 ? `<button class="prize__nav prev" aria-label="Foto anterior">‹</button><button class="prize__nav next" aria-label="Próxima foto">›</button>
-        <div class="prize__dots">${fotos.map((_, k) => `<button aria-label="Foto ${k + 1}"${k ? "" : ' class="on"'}></button>`).join("")}</div>` : ""}
-      </div>
-      <div class="prize__head">
-        ${p.ano ? `<span class="award__year">${p.ano}</span>` : ""}
-        <h3>${p.titulo}</h3>
-        ${p.categoria ? `<p class="award__cat">${p.categoria}</p>` : ""}
-      </div>
-      <div class="modal__content" style="padding-top:.6rem">
-        ${p.quem ? `<p class="award__who" style="margin:0">${p.quem}</p>` : ""}
-        <p>${p.descricao || ""}</p>
-        ${p.link ? `<div class="modal__links"><a href="${p.link}" target="_blank" rel="noopener">saiba mais ↗</a></div>` : ""}
-      </div>`;
-    let si = 0;
-    const track2 = $(".prize__track", body), dots = $$(".prize__dots button", body);
-    const go = k => { si = (k + fotos.length) % fotos.length; track2.style.transform = `translateX(${-si * 100}%)`; dots.forEach((d, n) => d.classList.toggle("on", n === si)); };
-    $(".prize__nav.prev", body)?.addEventListener("click", () => go(si - 1));
-    $(".prize__nav.next", body)?.addEventListener("click", () => go(si + 1));
-    dots.forEach((d, n) => d.addEventListener("click", () => go(n)));
-    let sx0 = 0;
-    track2.addEventListener("touchstart", ev => (sx0 = ev.touches[0].clientX), { passive: true });
-    track2.addEventListener("touchend", ev => { const dx = ev.changedTouches[0].clientX - sx0; if (Math.abs(dx) > 40) go(si + (dx < 0 ? 1 : -1)); });
-    modal.onkeydown = ev => { if (!track2.isConnected) return; if (ev.key === "ArrowLeft") go(si - 1); if (ev.key === "ArrowRight") go(si + 1); };
-    setTimeout(() => { openDialog(modal); $(".modal__close", modal).focus(); }, reduce ? 0 : 280);
-  });
-
-
   /* ---------- galeria + lightbox ---------- */
   const gGrid = $("#galleryGrid"), lb = $("#lightbox"), lbMedia = $("#lbMedia"), lbCap = $("#lbCap");
-  const icons = ["🧫", "🔬", "🧬", "💜", "☕", "✨", "🎓", "🌸"];
-  const ph = (g, i) => {
-    const [a1, a2] = pair(i);
-    return `<div class="gph" style="--a1:${a1};--a2:${a2}"><span>${icons[i % icons.length]}</span><small>sua foto aqui</small></div>`;
-  };
-  const media = (g, i) => g.src ? `<img src="${g.src}" alt="${g.legenda}" loading="lazy">` : ph(g, i);
-  gGrid.innerHTML = GALLERY.map((g, i) => `
-    <button class="gitem gitem--${g.formato || "quadrado"} reveal" data-i="${i}" style="--rot:${[-2, 1.5, -1, 2.5, -1.5, 1][i % 6]}deg; transition-delay:${(i % 4) * 0.07}s">
-      <span class="gitem__frame">${media(g, i)}</span>
-      <span class="gitem__cap">${g.legenda}</span>
-    </button>`).join("");
-  observeReveals();
-  let gi = 0;
-  const showG = i => {
-    gi = (i + GALLERY.length) % GALLERY.length;
-    const g = GALLERY[gi];
-    lbMedia.innerHTML = media(g, gi);
-    lbCap.textContent = `${g.legenda} · ${gi + 1}/${GALLERY.length}`;
-  };
-  gGrid.addEventListener("click", e => {
-    const it = e.target.closest(".gitem"); if (!it) return;
-    showG(+it.dataset.i); openDialog(lb);
-  });
-  $("#lbPrev").addEventListener("click", () => showG(gi - 1));
-  $("#lbNext").addEventListener("click", () => showG(gi + 1));
-  lb.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft") showG(gi - 1);
-    if (e.key === "ArrowRight") showG(gi + 1);
-  });
-  let tx = 0;
-  lb.addEventListener("touchstart", e => (tx = e.touches[0].clientX), { passive: true });
-  lb.addEventListener("touchend", e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) showG(gi + (dx < 0 ? 1 : -1)); });
+  let renderGallery = () => {};
+  if (gGrid && lb && typeof GALLERY !== "undefined") { // só roda se a galeria existir
+    const icons = ["🧫", "🔬", "🧬", "💜", "☕", "✨", "🎓", "🌸"];
+    const ph = (g, i) => {
+      const [a1, a2] = pair(i);
+      return `<div class="gph" style="--a1:${a1};--a2:${a2}"><span>${icons[i % icons.length]}</span><small>${ui("yourPhoto")}</small></div>`;
+    };
+    const media = (g, i) => g.src ? `<img src="${g.src}" alt="${term(g.legenda)}" loading="lazy">` : ph(g, i);
+    renderGallery = (shown = false) => {
+      gGrid.innerHTML = GALLERY.map((g, i) => `
+        <button class="gitem gitem--${g.formato || "quadrado"} reveal${shown ? " in" : ""}" data-i="${i}" style="--rot:${[-2, 1.5, -1, 2.5, -1.5, 1][i % 6]}deg; transition-delay:${(i % 4) * 0.07}s">
+          <span class="gitem__frame">${media(g, i)}</span>
+          <span class="gitem__cap">${term(g.legenda)}</span>
+        </button>`).join("");
+      observeReveals();
+    };
+    renderGallery();
+    let gi = 0;
+    const showG = i => {
+      gi = (i + GALLERY.length) % GALLERY.length;
+      const g = GALLERY[gi];
+      lbMedia.innerHTML = media(g, gi);
+      lbCap.textContent = `${term(g.legenda)} · ${gi + 1}/${GALLERY.length}`;
+    };
+    gGrid.addEventListener("click", e => {
+      const it = e.target.closest(".gitem"); if (!it) return;
+      showG(+it.dataset.i); openDialog(lb);
+    });
+    $("#lbPrev").addEventListener("click", () => showG(gi - 1));
+    $("#lbNext").addEventListener("click", () => showG(gi + 1));
+    lb.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft") showG(gi - 1);
+      if (e.key === "ArrowRight") showG(gi + 1);
+    });
+    let tx = 0;
+    lb.addEventListener("touchstart", e => (tx = e.touches[0].clientX), { passive: true });
+    lb.addEventListener("touchend", e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) showG(gi + (dx < 0 ? 1 : -1)); });
+  }
+
+  /* ---------- troca de idioma ---------- */
+  function setLang(lang, animate = true) {
+    LANG = lang;
+    store.set("dreamlab-lang", lang);
+    const swap = () => {
+      $$("dialog[open]").forEach(d => d.close());
+      applyStatic();
+      buildScrub();
+      const words = ui("words"); wi = 0; rot.textContent = words[0];
+      renderTeam(true);
+      renderPubs($("#pubSearch").value);
+      renderGallery(true);
+      $$(".year-group").forEach(g => g.classList.add("in"));
+      sizeH(); onScroll();
+    };
+    if (!animate || reduce) return swap();
+    document.body.classList.add("lang-swap");
+    setTimeout(() => { swap(); document.body.classList.remove("lang-swap"); }, 260);
+  }
+  $("#langToggle")?.addEventListener("click", () => setLang(LANG === "pt" ? "en" : "pt"));
+  if (LANG !== "pt") setLang(LANG, false); else applyStatic();
 
   /* ---------- tilt cards ---------- */
   if (finePointer && !reduce) {
@@ -471,4 +482,3 @@
     st.addEventListener("pointerup", end); st.addEventListener("pointercancel", end);
   });
 })();
-
