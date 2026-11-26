@@ -25,7 +25,7 @@ const TEAM = [
     temas: ["BACH1", "Ferroptose"],
     bio: "Biomédica pela UNIFESP (2023), mestre em Oncologia pela mesma instituição, com pesquisa em autofagia desenvolvida no DREAM Lab e experiência internacional na Alemanha. Atualmente, é doutoranda FAPESP e investiga o papel de BACH1 na regulação da ferroptose em diferentes linhagens celulares de câncer.",
     links: { Lattes: "http://lattes.cnpq.br/4311894634723883" },
-    foto: "assets/equipe/anabia.jpeg"
+    foto: "assets/equipe/anabia.png"
   },
   {
     nome: "Izadora de Souza",
